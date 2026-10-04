@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body { @apply bg-ivory text-maroon-deep font-body antialiased; }
+:focus-visible { outline: 2px solid #c9a04a; outline-offset: 3px; }
+
+@layer components {
+  .gold-text { background: linear-gradient(135deg,#9a7326,#e6c776 45%,#c9a04a 70%,#9a7326); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .paper { background-color: #fbf4e4; background-image: radial-gradient(rgba(154,115,38,.07) 1px, transparent 1px); background-size: 14px 14px; }
+  .section { @apply relative px-5 py-20 md:py-28 max-w-6xl mx-auto; }
+  .h2 { @apply font-display text-4xl md:text-5xl font-semibold text-center text-maroon; }
+  .card { @apply relative rounded-2xl border border-gold/50 bg-white/60 backdrop-blur p-6 shadow-[0_10px_40px_-18px_rgba(91,15,31,.45)]; }
+  .card::before { content: ""; @apply absolute inset-1.5 rounded-xl border border-gold/30 pointer-events-none; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm tracking-widest uppercase font-medium transition duration-300; }
+  .btn-gold { @apply bg-gradient-to-r from-gold-dark via-gold to-gold-dark text-maroon-deep hover:brightness-110 hover:-translate-y-0.5; }
+  .btn-ghost { @apply border border-gold text-maroon hover:bg-gold/15; }
+  .input { @apply w-full rounded-lg border border-gold/50 bg-ivory/80 px-4 py-3 text-maroon-deep placeholder:text-maroon/40 focus:border-saffron focus:outline-none; }
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+@keyframes fall { 0% { transform: translate3d(0,-10vh,0) rotate(0); opacity: 0 } 10% { opacity: .85 } 100% { transform: translate3d(var(--dx),110vh,0) rotate(540deg); opacity: 0 } }
+@keyframes twinkle { 0%,100% { opacity: 0; transform: scale(.4) } 50% { opacity: 1; transform: scale(1) } }
+@keyframes flicker { 0%,100% { transform: scale(1) rotate(-2deg) } 50% { transform: scale(1.08,.94) rotate(2deg) } }
+@keyframes glow { 0%,100% { opacity: .55 } 50% { opacity: .95 } }
+@keyframes spin-slow { to { transform: rotate(360deg) } }
+@keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes tick { from { transform: translateY(-30%); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px) } to { opacity: 1; transform: none } }
+
+.petal { position: absolute; top: 0; border-radius: 80% 0 80% 0; animation: fall linear infinite; }
+.spark { position: absolute; border-radius: 50%; background: #e6c776; box-shadow: 0 0 8px #e6c776; animation: twinkle ease-in-out infinite; }
+.flame { transform-origin: 50% 90%; animation: flicker 1.6s ease-in-out infinite; }
+.glow { animation: glow 3s ease-in-out infinite; }
+.spin-slow { animation: spin-slow 120s linear infinite; }
+.floaty { animation: floaty 6s ease-in-out infinite; }
+.tick { animation: tick .45s ease; }
+.hero-in > * { opacity: 0; animation: fadeUp 1.1s ease forwards; }
+.hero-in > *:nth-child(2) { animation-delay: .25s } .hero-in > *:nth-child(3) { animation-delay: .5s }
+.hero-in > *:nth-child(4) { animation-delay: .75s } .hero-in > *:nth-child(5) { animation-delay: 1s }
+.hero-in > *:nth-child(6) { animation-delay: 1.25s } .hero-in > *:nth-child(7) { animation-delay: 1.5s }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .petal, .spark, .spin-slow, .floaty, .glow, .flame, .tick { animation: none !important; }
+  .petal, .spark { display: none; }
+  .reveal, .hero-in > * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+}
+
+/* ---- ritual scene animations (play once when the card scrolls into view) ---- */
+.stage svg g, .stage svg path, .stage svg text { transform-box: fill-box; transform-origin: center; }
+@keyframes walkL { from { transform: translateX(-320px); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes walkR { from { transform: translateX(320px); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes pop { 0% { transform: scale(0); opacity: 0 } 70% { transform: scale(1.5); opacity: 1 } 100% { transform: scale(1); opacity: 1 } }
+@keyframes garA { from { transform: translate(240px,-50px) scale(.5); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes garB { from { transform: translate(-240px,-50px) scale(.5); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes ringL { from { transform: translateX(-220px) rotate(-200deg); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes ringR { from { transform: translateX(220px) rotate(200deg); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes orbit { to { transform: rotate(360deg) } }
+.in .a-walkL { animation: walkL 2.4s cubic-bezier(.2,.8,.2,1) both; }
+.in .a-walkR { animation: walkR 2.4s cubic-bezier(.2,.8,.2,1) both; }
+.in .a-pop { animation: pop 1s ease both; }
+.in .a-garA { animation: garA 1.6s ease-out both; }
+.in .a-garB { animation: garB 1.6s ease-out both; }
+.in .a-ringL { animation: ringL 2s ease-out both; }
+.in .a-ringR { animation: ringR 2s ease-out both; }
+.in .a-orbit { animation: orbit 14s linear infinite; }
+.in .twk { animation: twinkle 2.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .in .a-walkL, .in .a-walkR, .in .a-pop, .in .a-garA, .in .a-garB, .in .a-ringL, .in .a-ringR, .in .a-orbit, .in .twk { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
