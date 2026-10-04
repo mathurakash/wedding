@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav aria-label="Main" className={`fixed top-0 inset-x-0 z-50 transition duration-500 ${solid || open ? "bg-maroon-deep/95 backdrop-blur shadow-lg" : "bg-transparent"}`}>
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-        <a href="#home" className="font-script text-3xl gold-text">❖</a>
+        <a href="#home" className="font-script text-3xl gold-text"><img src="/images/hd-lord-ganesha-24k-gold-coin-png-for-web-design_63q.webp" alt="Ganesha" height="50px" width="50px" /></a>
         <ul className="hidden md:flex gap-8">
           {links.map(([l, h]) => <li key={h}><a href={h} className="text-sm tracking-[0.25em] uppercase text-gold-light hover:text-white transition">{l}</a></li>)}
         </ul>
